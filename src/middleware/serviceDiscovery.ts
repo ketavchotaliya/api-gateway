@@ -1,6 +1,6 @@
 import { CustomRequest, CustomResponse } from '../environment';
 import { NextFunction } from 'express';
-import { gatewayConfig } from '../index';
+import gatewayConfig from '../config';
 import HttpStatus from 'http-status-codes';
 import { createResponse } from '../utils/helper';
 

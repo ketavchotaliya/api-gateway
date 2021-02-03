@@ -1,20 +1,9 @@
 import express from 'express';
 import { createServer } from 'http';
 import logger from './utils/logger';
-import jsyaml from 'js-yaml';
-import fs from 'fs';
 import { router } from './routes';
 import serviceDiscovery from './middleware/serviceDiscovery';
-
-export let gatewayConfig: any;
-
-try {
-  // Get gateway config file, or throw exception on error
-  gatewayConfig = jsyaml.safeLoad(fs.readFileSync(__dirname + '/../gateway.config.yaml', 'utf8'));
-} catch (e) {
-  logger.error(__filename, '', '', 'Error during read gateway config file', e);
-  process.exit(0);
-}
+import gatewayConfig from './config'
 
 // create an object of express application
 export const app: express.Application = express();
