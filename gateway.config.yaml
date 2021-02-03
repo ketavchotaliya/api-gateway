@@ -1,0 +1,45 @@
+server:
+  port: 8585
+
+application:
+  name: APIGateway
+
+cloud:
+  gateway:
+    routes:
+      - service: restaurant
+        predicates: restaurant
+      - service: booking
+        predicates: reservation
+    hostname:
+      restaurant: http://localhost:6060
+      reservation: http://localhost:7070
+
+gateway:
+  url:
+    publicPath:
+      - /auth/login
+      - /actuator/**
+      - /institute/api/v1/course/category/list
+      - /institute/api/v1/institute/create
+      - /institute/api/v1/institute/validateUser
+      - /institute/api/v1/institute/validateUser
+      - /expert/public/**
+      - /certification/public/**
+      - /institute/public/**
+      - /certifidadmin/public/**
+      - /jobs/api/v1/public/**
+      - /dashboard/assets/**
+    authenticatedPath:
+      - /auth/refresh/token
+      - /auth/claims
+      - /auth/password
+      - /auth/logout
+      - /auth/identity/session
+      - /auth/identity/session/logout/all
+      - /auth/identity/session/logout/*
+      - /search/location/**
+    privatePath:
+      - /admin/**
+      - /identity/private/**
+    logoutPath: /auth/logout

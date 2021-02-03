@@ -1,0 +1,43 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "jsRules": {
+    "max-line-length": {
+      "options": [
+        120
+      ]
+    }
+  },
+  "rules": {
+    "quotemark": false,
+    "max-line-length": {
+      "options": [
+        120
+      ]
+    },
+    "new-parens": false,
+    "no-arg": false,
+    "no-bitwise": true,
+    "no-conditional-assignment": false,
+    "no-consecutive-blank-lines": false,
+    "no-console": {
+      "severity": "warning",
+      "options": [
+        "debug",
+        "info",
+        "log",
+        "time",
+        "timeEnd",
+        "trace"
+      ]
+    },
+    "trailing-comma": false,
+    "no-string-literal": false,
+    "object-literal-sort-keys": false,
+    "variable-name": false,
+    "member-ordering": false
+  },
+  "rulesDirectory": []
+}
