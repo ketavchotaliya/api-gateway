@@ -1,6 +1,6 @@
 import express from 'express';
 import { CustomRequest, CustomResponse } from '../environment';
-import microservice from '../services/microservice';
+import { microservice, identity } from '../services';
 import gatewayConfig from '../config';
 import { createResponse } from '../utils/helper';
 import HttpStatus from 'http-status-codes';
@@ -18,8 +18,15 @@ for (let privatePath of gatewayConfig.gateway.url.privatePath) {
   });
 }
 
+// Redirect public route directally without any authentication
+for (let publicPath of gatewayConfig.gateway.url.publicPath) {
+  router.all(publicPath, (req: CustomRequest, res: CustomResponse) => {
+    microservice.callService(req, res);
+  });
+}
+
 // Redirect all routes to particular microservice
-router.all('/*', (req: CustomRequest, res: CustomResponse) => {
+router.all('/*', identity.validateAuthToken, (req: CustomRequest, res: CustomResponse) => {
   microservice.callService(req, res);
 });
 

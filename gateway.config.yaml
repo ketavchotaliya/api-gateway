@@ -19,17 +19,9 @@ gateway:
   url:
     publicPath:
       - /auth/login
-      - /actuator/**
-      - /institute/api/v1/course/category/list
-      - /institute/api/v1/institute/create
-      - /institute/api/v1/institute/validateUser
-      - /institute/api/v1/institute/validateUser
       - /expert/public/**
-      - /certification/public/**
-      - /institute/public/**
-      - /certifidadmin/public/**
       - /jobs/api/v1/public/**
-      - /dashboard/assets/**
+      - /restaurant/api/v1/restaurant
     authenticatedPath:
       - /auth/refresh/token
       - /auth/claims
