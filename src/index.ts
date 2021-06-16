@@ -3,7 +3,8 @@ import { createServer } from 'http';
 import logger from './utils/logger';
 import { router } from './routes';
 import serviceDiscovery from './middleware/serviceDiscovery';
-import gatewayConfig from './config'
+import gatewayConfig from './config';
+import fileUpload from 'express-fileupload';
 
 // create an object of express application
 export const app: express.Application = express();
@@ -17,6 +18,9 @@ const server = createServer(app);
 server.listen(port, () => {
   logger.info(__filename, ``, ``, ``, `Server is running on ${port}`);
 });
+
+// initialize experss-fileupload with app
+app.use(fileUpload());
 
 // find service from request URL
 app.use(serviceDiscovery.findServiceFromRequest);

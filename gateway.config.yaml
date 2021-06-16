@@ -7,13 +7,16 @@ application:
 cloud:
   gateway:
     routes:
-      - service: restaurant
-        predicates: restaurant
-      - service: booking
-        predicates: reservation
+      - service: jobs
+        predicates: jobs
+      - service: institute
+        predicates: institute
+      - service: assessment
+        predicates: assessment
     hostname:
-      restaurant: http://localhost:6060
-      reservation: http://localhost:7070
+      jobs: http://localhost:8080
+      institute: http://localhost:7070
+      assessment: http://localhost:9090
 
 gateway:
   url:
@@ -22,6 +25,7 @@ gateway:
       - /expert/public/**
       - /jobs/api/v1/public/**
       - /restaurant/api/v1/restaurant
+      - /institute/public/**
     authenticatedPath:
       - /auth/refresh/token
       - /auth/claims
