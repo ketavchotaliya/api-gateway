@@ -5,6 +5,7 @@ import { router } from './routes';
 import serviceDiscovery from './middleware/serviceDiscovery';
 import gatewayConfig from './config';
 import fileUpload from 'express-fileupload';
+import * as bodyParser from 'body-parser';
 
 // create an object of express application
 export const app: express.Application = express();
@@ -21,6 +22,10 @@ server.listen(port, () => {
 
 // initialize experss-fileupload with app
 app.use(fileUpload());
+
+// initialize body parser with app
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
 
 // find service from request URL
 app.use(serviceDiscovery.findServiceFromRequest);

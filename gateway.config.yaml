@@ -39,4 +39,5 @@ gateway:
       - /admin/**
       - /identity/private/**
       - /restaurant/private/**
+      - /jobs/private/**
     logoutPath: /auth/logout

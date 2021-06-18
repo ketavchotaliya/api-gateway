@@ -14,7 +14,6 @@ router.get('/health', (req: CustomRequest, res: CustomResponse) => {
 for (let privatePath of gatewayConfig.gateway.url.privatePath) {
   router.all(privatePath, (req: CustomRequest, res: CustomResponse) => {
     createResponse(res, HttpStatus.NOT_FOUND, HttpStatus.getStatusText(HttpStatus.NOT_FOUND));
-    return;
   });
 }
 
