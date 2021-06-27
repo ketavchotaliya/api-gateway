@@ -1,5 +1,9 @@
 server:
   port: 8585
+  rateLimit:
+    retryAfter: 15 # value in minutes
+    maximumTry: 10 # maximum number of continuous request to allow
+    message: {'error': 'Too many request comming from this IP, please try again after an hour'}   
 
 application:
   name: APIGateway
