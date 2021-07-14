@@ -6,6 +6,8 @@ import serviceDiscovery from './middleware/serviceDiscovery';
 import gatewayConfig from './config';
 import fileUpload from 'express-fileupload';
 import * as bodyParser from 'body-parser';
+import cors from 'cors';
+import HttpStatus from 'http-status-codes';
 
 // create an object of express application
 export const app: express.Application = express();
@@ -19,6 +21,15 @@ const server = createServer(app);
 server.listen(port, () => {
   logger.info(__filename, ``, ``, ``, `Server is running on ${port}`);
 });
+
+// initialize cors worh App Object
+const corsOptions = {
+  origin: ['http://google.com'], //['http://abc.com', 'http://def.com']
+  optionsSuccessStatus: HttpStatus.OK, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  exposedHeaders: ['x-auth'], // ['Origin', 'Content-Type', 'Authorization']
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 // initialize experss-fileupload with app
 app.use(fileUpload());
