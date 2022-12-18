@@ -1,5 +1,5 @@
 import express from 'express';
-import { CustomRequest, CustomResponse } from '../environment';
+import { Request, Response } from 'express';
 import { microservice, identity } from '../services';
 import gatewayConfig from '../config';
 import { createResponse } from '../utils/helper';
@@ -16,26 +16,26 @@ const publicAPI_RateLimit = rateLimit({
   message: gatewayConfig.server.rateLimit.message,
 });
 
-router.get('/health', (req: CustomRequest, res: CustomResponse) => {
+router.get('/health', (req: Request, res: Response) => {
   res.status(200).json({ success: true });
 });
 
 // Prevent private route accessing from outside
 for (let privatePath of gatewayConfig.gateway.url.privatePath) {
-  router.all(privatePath, (req: CustomRequest, res: CustomResponse) => {
+  router.all(privatePath, (req: Request, res: Response) => {
     createResponse(res, HttpStatus.NOT_FOUND, HttpStatus.getStatusText(HttpStatus.NOT_FOUND));
   });
 }
 
 // Redirect public route directally without any authentication
 for (let publicPath of gatewayConfig.gateway.url.publicPath) {
-  router.all(publicPath, publicAPI_RateLimit, (req: CustomRequest, res: CustomResponse) => {
+  router.all(publicPath, publicAPI_RateLimit, (req: Request, res: Response) => {
     microservice.callService(req, res);
   });
 }
 
 // Redirect all routes to particular microservice
-router.all('/*', identity.validateAuthToken, (req: CustomRequest, res: CustomResponse) => {
+router.all('/*', /*identity.validateAuthToken,*/ (req: Request, res: Response) => {
   microservice.callService(req, res);
 });
 

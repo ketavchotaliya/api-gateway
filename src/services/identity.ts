@@ -1,10 +1,10 @@
-import { CustomRequest, CustomResponse } from '../environment';
+import { Request, Response } from 'express';
 import { isEmpty } from '../utils/validator';
 import { NextFunction } from 'express';
 import { createValidationResponse } from '../utils/helper';
 
 class Identity {
-  public async validateAuthToken(req: CustomRequest, res: CustomResponse, next: NextFunction) {
+  public async validateAuthToken(req: Request, res: Response, next: NextFunction) {
     const { authorization } = req.headers;
     const errors: any = {};
 

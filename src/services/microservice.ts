@@ -1,10 +1,11 @@
-import { CustomResponse } from '../environment';
+import { Response } from 'express';
 import got from 'got';
 import logger from '../utils/logger';
 import FormData from 'form-data';
+import HttpStatus, {getStatusText} from 'http-status-codes';
 
 class Microservice {
-  public async callService(req: any, res: CustomResponse) {
+  public async callService(req: any, res: Response) {
     try {
       // prepare service url
       const microserviceUrl: string = req.custom.hostname + req.originalUrl;
@@ -64,8 +65,14 @@ class Microservice {
       return res.status(apiResponse.statusCode).send(apiResponse.body);
     } catch (e) {
       logger.error(__filename, '', 'callService', 'Internal Server error', e);
-      res.setHeader('Content-Type', e.headers['content-type']);
-      res.status(e.statusCode).send(e.body);
+      if(e && e.headers && e.headers['content-types']) {
+        res.setHeader('Content-Type', e.headers['content-type']);
+      }
+      if(e && e.body) {
+        res.status(e.statusCode).send(e.body);
+      } else {
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(getStatusText(HttpStatus.INTERNAL_SERVER_ERROR));
+      }
     }
   }
 }
